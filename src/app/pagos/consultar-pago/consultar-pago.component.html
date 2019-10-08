@@ -1,0 +1,57 @@
+<nav class="navbar-fixed-top navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">
+    CONSULTAR IMPUESTOS
+  </a>
+
+    <button class="btn btn-outline-success my-2 my-sm-0" (click)="logout()">Cerrar sesión</button>
+
+</nav>
+<br><br>
+<div class="container">
+  <div class="form-group">
+    <label for="exampleInputPassword1">CIU, CÉDULA o RUC</label>
+    <input type="text" class="form-control" id="id" [(ngModel)]="id" placeholder="Ingrese CIU, CÉDULA o RUC">
+  </div>
+  <button type="button" (click)="consultar()" class="btn btn-info" >CONSULTAR</button>
+</div>
+<div class="container">
+  <!-- <router-outlet></router-outlet> -->
+  <hr>
+  <div *ngFor="let item of data; first as isFirst">
+    <b *ngIf="isFirst">Nro Ciu: {{item.ciu}} <br></b>
+
+    <b *ngIf="isFirst">Identificación: {{item.cedula_ruc}} <br></b>
+
+    <b *ngIf="isFirst">Contribuyente: {{item.nombres}} <br></b>
+    <!-- <br>
+  <b *ngIf="isFirst">Nro titulos: </b>
+  <br> -->
+  </div>
+  <h2>A pagar: {{a_pagar | currency:""}}</h2>
+  <hr>
+  <div class="alert alert-success alert-dismissible" *ngIf="alerta == true" role="alert">
+    Este usuario no tiene deudas
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">DETALLE</th>
+        <th scope="col">REFERENCIA</th>
+        <th scope="col">DETALLE</th>
+        <th scope="col">AÑO</th>
+        <th scope="col">A PAGAR</th>
+        <th scope="col">PAGO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data, index as id">
+        <td scope="row">{{item.impuesto}}</td>
+        <td>{{item.clave}}</td>
+        <td>{{item.descripcion}}</td>
+        <td>{{item.anio}}</td>
+        <td>{{item.emision}}</td>
+        <td><button type="button" class="btn btn-info" (click)="confirmar(id)">Pagar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
